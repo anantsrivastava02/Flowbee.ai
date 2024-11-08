@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  scraper:
+    build: .
+    environment:
+      LINKEDIN_URL: 'https://www.linkedin.com/in/aderonke-shogbola-26375757/'
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: ''
+      DB_NAME: Linkedindata  # Assuming you want to use the same database name
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_DATABASE: Linkedindata
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ''
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
