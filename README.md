@@ -34,10 +34,9 @@ Flowbee.ai is a Python-based project for LinkedIn post analytics, leveraging MyS
 
 ## STEPS
    1- Run Redis Server on WSL using
-   
-     ```bash
-     redis-server
-     ```
+   ```bash
+   redis-server
+   ```
      
   2- Create a Sql Database and config user, password, host, and database_name
   
@@ -46,15 +45,14 @@ Flowbee.ai is a Python-based project for LinkedIn post analytics, leveraging MyS
   4- add url also
   
   5- Run poetry using
-  
-      ```bash
-      poetry install
-     ```
+  ```bash
+   poetry install
+   ```
      
   6- Start the enviorment using
-      ```bash
-     poetry shell
-     ```
+  ```bash
+   poetry shell
+   ```
      
   7- Run the improved.py
   
