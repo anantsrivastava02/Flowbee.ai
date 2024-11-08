@@ -60,11 +60,11 @@ Flowbee.ai is a Python-based project for LinkedIn post analytics, leveraging MyS
 ## Design
 ### Given a Url Crawler goes to add three links to redis that are:
 
-   #### given a profile link it add the recent-post as suffix to go to post page of person
+   #### 1-given a profile link it add the recent-post as suffix to go to post page of person
    
-   #### given a company link it add feed as suffix to go to post 
+   #### 2-given a company link it add feed as suffix to go to post 
    
-   #### and finally it adds the url also 
+   #### 3-and finally it adds the url also 
 
 ### Based on the page if it has nots then it will provide the following
 
