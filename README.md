@@ -53,41 +53,41 @@ Flowbee.ai is a Python-based project for LinkedIn post analytics, leveraging MyS
   7- Run the improved.py
   
 
- #OR 
+ ### OR 
  
   1- Run the docker image after setting up redis server 
   
 ## Design
-#Given a Url Crawler goes to add three links to redis that are:
+### Given a Url Crawler goes to add three links to redis that are:
 
-   #given a profile link it add the recent-post as suffix to go to post page of person
+   #### given a profile link it add the recent-post as suffix to go to post page of person
    
-   #given a company link it add feed as suffix to go to post 
+   #### given a company link it add feed as suffix to go to post 
    
-   #and finally it adds the url also 
+   #### and finally it adds the url also 
 
-#Based on the page if it has nots then it will provide the following
+### Based on the page if it has nots then it will provide the following
 
-   #1-reactions
+   #### 1-reactions
    
-   #2-date of post
+   #### 2-date of post
    
-   #3-comments
+   #### 3-comments
    
-   #4-reposts
+   #### 4-reposts
    
-   #5-Media type
+   #### 5-Media type
 
-   #6-post
+   #### 6-post
    
-#and print succesfully data obtained else failed
+### and print succesfully data obtained else failed
 
-#after that i defined two function that calulates frequency and every other related field given in ps and store the data in metrics and visualization image 
+### after that i defined two function that calulates frequency and every other related field given in ps and store the data in metrics and visualization image 
 
-#dataframe gets returned in form of csv file 
+### dataframe gets returned in form of csv file 
 
 
-#apart from that it adds the data to Mysql database 
+### apart from that it adds the data to Mysql database 
 
 
 ## License
