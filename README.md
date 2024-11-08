@@ -1,7 +1,3 @@
-Here’s a suggested README for your repository:
-
----
-
 # Flowbee.ai
 
 Flowbee.ai is a Python-based project for LinkedIn post analytics, leveraging MySQL for data storage and analysis. The project includes tools for scraping, analyzing, and visualizing LinkedIn post data, with support for Docker to streamline environment setup.
