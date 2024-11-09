@@ -18,6 +18,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 from matplotlib import pyplot as plt
 import mysql.connector
 
+load_dotenv()
 USERNAME = os.getenv("USERNAME")
 PASSWORD = os.getenv("PASSWORD")
 HOST = os.getenv("HOST")
@@ -181,7 +182,7 @@ class LinkedInPostAnalyzer:
             url = link["href"]
             if "linkedin.com/in/" in url or "linkedin.com/company/" in url:
                 new_urls.append(url)
-        return [] #list(set(new_urls))
+        return list(set(new_urls))
     
     def scroll_page(self):
         last_height = self.driver.execute_script("return document.body.scrollHeight")
@@ -306,7 +307,7 @@ class LinkedInPostAnalyzer:
 
     def process_post_data(self):
         count = 0
-        while count < 10:
+        while count < 1000:
             url = self.redis_client.lpop("linkedin_urls")
             if not url:
                 break
@@ -318,6 +319,34 @@ class LinkedInPostAnalyzer:
                 print(f"Successfully processed post from URL: {url}")
             else:
                 print(f"Failed to process post from URL: {url}")
+            post_data = self.scrape_post_data(f"{url}recent-activity/all/")
+            if post_data:
+                self.post_data.append(post_data)
+                count += 1
+                print(f"Successfully processed post from URL: {url}recent-activity/all/")
+            else:
+                print(f"Failed to process post from URL: {url}recent-activity/all")
+            post_data = self.scrape_post_data(f"{url}posts/?feedView=all")
+            if post_data:
+                self.post_data.append(post_data)
+                count += 1
+                print(f"Successfully processed post from URL: {url}posts/?feedView=all")
+            else:
+                print(f"Failed to process post from URL: {url}posts/?feedView=all")
+            post_data = self.scrape_post_data(f"{url}/recent-activity/all/")
+            if post_data:
+                self.post_data.append(post_data)
+                count += 1
+                print(f"Successfully processed post from URL: {url}/recent-activity/all/")
+            else:
+                print(f"Failed to process post from URL: {url}/recent-activity/all")
+            post_data = self.scrape_post_data(f"{url}posts/?feedView=all")
+            if post_data:
+                self.post_data.append(post_data)
+                count += 1
+                print(f"Successfully processed post from URL: {url}/posts/?feedView=all")
+            else:
+                print(f"Failed to process post from URL: {url}/posts/?feedView=all")
             time.sleep(random.uniform(3, 7))
             
     def calculate_metrics(self):
@@ -384,10 +413,14 @@ class LinkedInPostAnalyzer:
                 for post in self.post_data:
                     self.insert_post_data_to_db(post)
                 print("Data saved to MySQL database successfully.")
+            metrics_df = pd.DataFrame()
             metrics = self.calculate_metrics()
-
+            if isinstance(metrics, dict):
+                metrics_df = metrics_df.append(metrics, ignore_index=True)
             self.visualize_metrics(metrics)
             print("LinkedIn Post Analysis Complete.")
+            metrics_df.to_csv('link_analysis.csv', index=False)
+            print("Metrics saved to link_analysis.csv successfully.")
         except Exception as e:
             print(f"Error during analysis: {e}")
         finally:
@@ -406,11 +439,7 @@ urls_to_add.append(URL)
 def add_urls_to_redis(urls):
     redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
     for base_url in urls:
-        url_recent_activity = f"{base_url}recent-activity/all/"
-        url_posts = f"{base_url}posts/?feedView=all"
         redis_client.rpush("linkedin_urls", base_url)
-        redis_client.rpush("linkedin_urls", url_recent_activity)
-        redis_client.rpush("linkedin_urls", url_posts)
     
 if __name__ == "__main__":
     
