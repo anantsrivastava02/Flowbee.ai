@@ -81,13 +81,13 @@ Flowbee.ai is a Python-based project for LinkedIn post analytics, leveraging MyS
    #### 6-post
    
 ### and print succesfully data obtained else failed
-
 ### after that i defined two function that calulates frequency and every other related field given in ps and store the data in metrics and visualization image 
-
 ### dataframe gets returned in form of csv file 
-
-
 ### apart from that it adds the data to Mysql database 
+
+### OR 
+#### Docker image at username anantsri222 on Dockerhub
+
 
 
 ## License
